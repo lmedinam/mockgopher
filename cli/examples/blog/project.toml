@@ -4,4 +4,4 @@ port = 3000
 [[routes]]
   path = "/posts"
   method = "GET"
-  body = "Hello World"
+  body = "get-posts.json"

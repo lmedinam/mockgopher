@@ -13,7 +13,7 @@ func TestLoadBlueprint(t *testing.T) {
 			path = "/posts"
 			method = "GET"
 			body = "Hello World"
-	`)
+	`, new(MockTemplateReader))
 
 	if blueprint.Host != "0.0.0.0" {
 		t.Errorf("Host is not set correctly.")

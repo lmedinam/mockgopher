@@ -34,7 +34,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	blueprint, _ := mockgopher.LoadBlueprint(string(content))
+	tReader := mockgopher.NewFSTemplateReader(
+		filepath.Join(filepath.Dir(flag.Args()[0]), "templates"))
+
+	blueprint, _ := mockgopher.LoadBlueprint(string(content), tReader)
 	fmt.Printf("Blueprint: %v", blueprint)
 
 	srv := &http.Server{
