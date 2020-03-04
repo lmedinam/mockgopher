@@ -3,6 +3,8 @@ package mockgopher
 import (
 	"io/ioutil"
 	"path/filepath"
+
+	"github.com/gobuffalo/plush"
 )
 
 type TemplateReader interface {
@@ -32,4 +34,9 @@ type MockTemplateReader struct{}
 
 func (t *MockTemplateReader) ReadTemplate(identifier string) ([]byte, error) {
 	return []byte("Hello World!"), nil
+}
+
+func View(template string) (string, error) {
+	ctx := plush.NewContext()
+	return plush.Render(template, ctx)
 }

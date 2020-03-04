@@ -2,6 +2,7 @@ package mockgopher
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -28,7 +29,13 @@ func (b *Blueprint) MakeRouter() *mux.Router {
 	for _, route := range b.Routes {
 		router.HandleFunc(route.Path, func(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(200)
-			fmt.Fprintf(w, route.Body)
+
+			output, err := View(route.Body)
+			if err != nil {
+				log.Fatalln(err)
+			}
+
+			fmt.Fprintf(w, output)
 		}).Methods(route.Method)
 	}
 	return router
