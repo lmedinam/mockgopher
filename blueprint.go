@@ -10,21 +10,15 @@ import (
 type Blueprint struct {
 	Host   string
 	Port   int
-	Routes []*BlueprintRoute
-}
-
-type BlueprintRoute struct {
-	Path   string
-	Method string
-	Body   string
+	Routes []*Route
 }
 
 func NewBlueprint(host string, port int) *Blueprint {
-	return &Blueprint{host, port, []*BlueprintRoute{}}
+	return &Blueprint{host, port, []*Route{}}
 }
 
-func (b *Blueprint) AddRoute(path string, method string, body string) *BlueprintRoute {
-	route := &BlueprintRoute{path, method, body}
+func (b *Blueprint) AddRoute(path string, method string, body string) *Route {
+	route := &Route{path, method, body}
 	b.Routes = append(b.Routes, route)
 	return route
 }
