@@ -13,9 +13,12 @@ func TestLoadBlueprint(t *testing.T) {
 			[routes.request]
 				path = "/posts"
 				method = "GET"
+				headers = [
+					{ key = "Content-Type", value = "application/json" }
+				]
 			[routes.response]
 				headers = [
-					"Content-Type: application/json"
+					{ key = "Content-Type", value = "application/json" }
 				]
 				template = "get-posts.json"
 	`, new(MockTemplateReader))

@@ -46,7 +46,7 @@ func main() {
 		ReadTimeout:  15 * time.Second,
 	}
 
-	log.Printf("Mock server running at: %s:%d\n", blueprint.Host, blueprint.Port)
+	log.Printf("Mock server running at: %s:%d\n\n", blueprint.Host, blueprint.Port)
 	log.Fatal(srv.ListenAndServe())
 }
 
