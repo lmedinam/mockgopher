@@ -38,6 +38,8 @@ func (b *Blueprint) AddRoute(path string, method string, body string) *Route {
 func (b *Blueprint) MakeRouter() *mux.Router {
 	router := mux.NewRouter()
 	for _, route := range b.Routes {
+		route := route // make a copy of the route for use in the lambda
+
 		hpLen := len(route.Request.Headers) * 2
 		hPairs := make([]string, hpLen, hpLen)
 
