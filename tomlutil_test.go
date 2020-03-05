@@ -10,9 +10,14 @@ func TestLoadBlueprint(t *testing.T) {
 		port = 3000
 
 		[[routes]]
-			path = "/posts"
-			method = "GET"
-			body = "Hello World"
+			[routes.request]
+				path = "/posts"
+				method = "GET"
+			[routes.response]
+				headers = [
+					"Content-Type: application/json"
+				]
+				template = "get-posts.json"
 	`, new(MockTemplateReader))
 
 	if blueprint.Host != "0.0.0.0" {
@@ -27,7 +32,7 @@ func TestLoadBlueprint(t *testing.T) {
 		t.Errorf("Router should have 1 route, have %v route(s).", len(blueprint.Routes))
 	}
 
-	if blueprint.Routes[0].Path != "/posts" || blueprint.Routes[0].Method != "GET" {
+	if blueprint.Routes[0].Request.Path != "/posts" || blueprint.Routes[0].Request.Method != "GET" {
 		t.Errorf("Route Nº 0 is no set correctly: %v.", blueprint.Routes[0])
 	}
 }

@@ -12,11 +12,11 @@ func LoadBlueprint(project string, tReader TemplateReader) (*Blueprint, error) {
 	}
 
 	for _, route := range blueprint.Routes {
-		tContent, err := tReader.ReadTemplate(route.Body)
+		tContent, err := tReader.ReadTemplate(route.Response.Template)
 		if err != nil {
 			return nil, err
 		}
-		route.Body = string(tContent)
+		route.Response.Template = string(tContent)
 	}
 
 	return blueprint, nil

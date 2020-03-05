@@ -2,6 +2,11 @@ host = "0.0.0.0"
 port = 3000
 
 [[routes]]
-  path = "/posts"
-  method = "GET"
-  body = "get-posts.json"
+  [routes.request]
+    path = "/posts"
+    method = "GET"
+  [routes.response]
+    headers = [
+      { key = "Content-Type", value = "application/json" }
+    ]
+    template = "get-posts.json"

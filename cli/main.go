@@ -38,7 +38,6 @@ func main() {
 		filepath.Join(filepath.Dir(flag.Args()[0]), "templates"))
 
 	blueprint, _ := mockgopher.LoadBlueprint(string(content), tReader)
-	fmt.Printf("Blueprint: %v", blueprint)
 
 	srv := &http.Server{
 		Handler:      blueprint.MakeRouter(),
@@ -47,6 +46,7 @@ func main() {
 		ReadTimeout:  15 * time.Second,
 	}
 
+	log.Printf("Mock server running at: %s:%d\n", blueprint.Host, blueprint.Port)
 	log.Fatal(srv.ListenAndServe())
 }
 
