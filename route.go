@@ -12,9 +12,10 @@ type Request struct {
 }
 
 type Response struct {
-	Template string
-	Status   int
-	Headers  []*Header
+	Template  string
+	Status    int
+	Resources []string
+	Headers   []*Header
 }
 
 type Header struct {

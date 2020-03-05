@@ -34,10 +34,16 @@ func main() {
 		log.Fatal(err)
 	}
 
-	tReader := mockgopher.NewFSTemplateReader(
-		filepath.Join(filepath.Dir(flag.Args()[0]), "templates"))
+	absPath, _ := filepath.Abs(filepath.Dir(flag.Args()[0]))
 
-	blueprint, _ := mockgopher.LoadBlueprint(string(content), tReader)
+	locator := mockgopher.NewLocator(
+		mockgopher.NewFSTemplateReader(
+			filepath.Join(filepath.Dir(flag.Args()[0]), "templates")),
+		mockgopher.NewFSResourceLocater(
+			filepath.Join(absPath, "resources")),
+	)
+
+	blueprint, _ := mockgopher.LoadBlueprint(string(content), locator)
 
 	srv := &http.Server{
 		Handler:      blueprint.MakeRouter(),

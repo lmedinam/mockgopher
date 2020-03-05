@@ -2,8 +2,11 @@ package mockgopher
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
+	"math/rand"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -54,14 +57,27 @@ func (b *Blueprint) MakeRouter() *mux.Router {
 				w.Header().Set(header.Key, header.Value)
 			}
 
-			output, err := View(route.Response.Template)
-			if err != nil {
-				log.Fatalln(err)
+			if len(route.Response.Resources) >= 1 {
+				res := route.Response.Resources
+				ran := rand.New(rand.NewSource(time.Now().Unix()))
+
+				fileContent, err := ioutil.ReadFile(res[ran.Intn(len(res))])
+
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				w.Write(fileContent)
+			} else {
+				output, err := View(route.Response.Template)
+				if err != nil {
+					log.Fatalln(err)
+				}
+
+				w.WriteHeader(200)
+
+				fmt.Fprintf(w, output)
 			}
-
-			w.WriteHeader(200)
-
-			fmt.Fprintf(w, output)
 		}).Methods(route.Request.Method).HeadersRegexp(hPairs...)
 	}
 	return router

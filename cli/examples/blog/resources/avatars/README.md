@@ -1,0 +1,1 @@
+This avatars was generated using (DiceBear Avatars website)[https://avatars.dicebear.com/], thanks!
