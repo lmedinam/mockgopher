@@ -5,7 +5,6 @@ import (
 	"path/filepath"
 
 	"github.com/gobuffalo/plush"
-	"syreclabs.com/go/faker"
 )
 
 type TemplateReader interface {
@@ -40,7 +39,7 @@ func (t *MockTemplateReader) ReadTemplate(identifier string) ([]byte, error) {
 func View(template string) (string, error) {
 	ctx := plush.NewContext()
 
-	ctx.Set("lorem", faker.Lorem())
+	ctx.Set("faker", NewFaker())
 
 	return plush.Render(template, ctx)
 }

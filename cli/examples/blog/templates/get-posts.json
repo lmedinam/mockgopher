@@ -3,7 +3,7 @@
     {
         "userId": 1,
         "id": <%= n %>,
-        "title": "<%= lorem.Sentence(5) %>",
+        "title": "<%= faker.Lorem.Sentence(5) %>",
         "body": "Aenean ipsum arcu, convallis sit amet sem vel, tempus dictum massa. Suspendisse porttitor mi eu auctor molestie. Nunc metus sapien, posuere vel quam nec, dignissim viverra orci. Phasellus accumsan tempus arcu a auctor. Etiam interdum consequat lacus eu facilisis. Proin nec quam convallis, molestie elit id, venenatis ipsum. Integer eget est quam. Nullam nisl urna, luctus ut laoreet in, suscipit ac libero. Integer aliquet, tortor sed molestie commodo, ipsum felis egestas orci, vitae fringilla mi purus eget lorem."
     },
     <% } %>
