@@ -6,9 +6,7 @@ delay = 1000
   [routes.request]
     path = "/posts"
     methods = ["GET"]
-    headers = [
-      { key = "Content-Type", value = "application/json.*" }
-    ]
+    headers = []
   [routes.response]
     delay = 3000
     headers = [

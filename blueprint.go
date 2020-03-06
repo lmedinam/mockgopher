@@ -2,10 +2,12 @@ package mockgopher
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"math/rand"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -16,6 +18,7 @@ type Blueprint struct {
 	Port   int
 	Delay  *int64
 	Routes []*Route
+	Log    io.Writer
 }
 
 func NewBlueprint(host string, port int) *Blueprint {
@@ -23,7 +26,7 @@ func NewBlueprint(host string, port int) *Blueprint {
 	delay = new(int64)
 	*delay = 0
 
-	return &Blueprint{host, port, delay, []*Route{}}
+	return &Blueprint{host, port, delay, []*Route{}, NewStdout()}
 }
 
 func (b *Blueprint) AddRoute(path string, method string, body string) *Route {
@@ -59,11 +62,19 @@ func (b *Blueprint) MakeRouter() *mux.Router {
 		}
 
 		router.HandleFunc(route.Request.Path, func(w http.ResponseWriter, r *http.Request) {
+			var delay int64
+			delay = 0
+
 			if route.Response.Delay != nil {
-				time.Sleep(time.Duration(*route.Response.Delay) * time.Millisecond)
+				delay = *route.Response.Delay
 			} else if b.Delay != nil {
-				time.Sleep(time.Duration(*b.Delay) * time.Millisecond)
+				delay = *b.Delay
 			}
+
+			b.Log.Write([]byte(fmt.Sprintf(
+				"%s - %s - %s - Delay: %dms\n", r.Method, r.Host, r.RequestURI, delay)))
+
+			time.Sleep(time.Duration(delay) * time.Millisecond)
 
 			for _, header := range route.Response.Headers {
 				w.Header().Set(header.Key, header.Value)
@@ -93,4 +104,17 @@ func (b *Blueprint) MakeRouter() *mux.Router {
 		}).Methods(route.Request.Methods...).HeadersRegexp(hPairs...)
 	}
 	return router
+}
+
+// Stdout is used to print stuff in the standar output implementing io.Writer
+type Stdout struct {
+	stdout *os.File
+}
+
+func NewStdout() *Stdout {
+	return &Stdout{os.Stdout}
+}
+
+func (s *Stdout) Write(p []byte) (n int, err error) {
+	return fmt.Fprint(s.stdout, string(p))
 }
