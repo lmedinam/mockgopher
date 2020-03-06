@@ -14,11 +14,16 @@ import (
 type Blueprint struct {
 	Host   string
 	Port   int
+	Delay  *int64
 	Routes []*Route
 }
 
 func NewBlueprint(host string, port int) *Blueprint {
-	return &Blueprint{host, port, []*Route{}}
+	var delay *int64
+	delay = new(int64)
+	*delay = 0
+
+	return &Blueprint{host, port, delay, []*Route{}}
 }
 
 func (b *Blueprint) AddRoute(path string, method string, body string) *Route {
@@ -53,6 +58,12 @@ func (b *Blueprint) MakeRouter() *mux.Router {
 		}
 
 		router.HandleFunc(route.Request.Path, func(w http.ResponseWriter, r *http.Request) {
+			if route.Response.Delay != nil {
+				time.Sleep(time.Duration(*route.Response.Delay) * time.Millisecond)
+			} else if b.Delay != nil {
+				time.Sleep(time.Duration(*b.Delay) * time.Millisecond)
+			}
+
 			for _, header := range route.Response.Headers {
 				w.Header().Set(header.Key, header.Value)
 			}

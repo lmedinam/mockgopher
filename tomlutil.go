@@ -5,7 +5,7 @@ import (
 )
 
 func LoadBlueprint(project string, locator *Locator) (*Blueprint, error) {
-	var blueprint *Blueprint
+	blueprint := NewBlueprint("localhost", 3000)
 
 	if _, err := toml.Decode(project, &blueprint); err != nil {
 		return nil, err

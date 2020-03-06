@@ -13,8 +13,9 @@ type Request struct {
 
 type Response struct {
 	Template  string
-	Status    int
+	Status    uint16
 	Resources []string
+	Delay     *int64
 	Headers   []*Header
 }
 

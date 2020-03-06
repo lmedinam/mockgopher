@@ -1,5 +1,6 @@
 host = "0.0.0.0"
 port = 3000
+delay = 1000
 
 [[routes]]
   [routes.request]
@@ -9,6 +10,7 @@ port = 3000
       { key = "Content-Type", value = "application/json.*" }
     ]
   [routes.response]
+    delay = 3000
     headers = [
       { key = "Content-Type", value = "application/json" }
     ]
@@ -22,7 +24,6 @@ port = 3000
     headers = [
       { key = "Content-Type", value = "image/svg+xml" }
     ]
-    template = "get-posts.json"
     resources = [
       "avatars/25789.svg",
       "avatars/527688.svg",
