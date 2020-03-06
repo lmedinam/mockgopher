@@ -13,6 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Blueprint represent how should be serve the routes
 type Blueprint struct {
 	Host   string
 	Port   int
@@ -21,6 +22,7 @@ type Blueprint struct {
 	Log    io.Writer
 }
 
+// NewBlueprint creates a new instance with some default values
 func NewBlueprint(host string, port int) *Blueprint {
 	var delay *int64
 	delay = new(int64)
@@ -29,6 +31,7 @@ func NewBlueprint(host string, port int) *Blueprint {
 	return &Blueprint{host, port, delay, []*Route{}, NewStdout()}
 }
 
+// AddRoute is a simple way to add new routes to a created blueprint
 func (b *Blueprint) AddRoute(path string, method string, body string) *Route {
 	methods := []string{method}
 	route := &Route{
@@ -47,6 +50,7 @@ func (b *Blueprint) AddRoute(path string, method string, body string) *Route {
 	return route
 }
 
+// MakeRouter create a router using the blueprint routes
 func (b *Blueprint) MakeRouter() *mux.Router {
 	router := mux.NewRouter()
 	for _, route := range b.Routes {
@@ -111,10 +115,12 @@ type Stdout struct {
 	stdout *os.File
 }
 
+// NewStdout return a Stdout object thats use the standar output
 func NewStdout() *Stdout {
 	return &Stdout{os.Stdout}
 }
 
+// Write to standar output as string
 func (s *Stdout) Write(p []byte) (n int, err error) {
 	return fmt.Fprint(s.stdout, string(p))
 }
