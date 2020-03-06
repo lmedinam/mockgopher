@@ -5,7 +5,7 @@ delay = 1000
 [[routes]]
   [routes.request]
     path = "/posts"
-    method = "GET"
+    methods = ["GET"]
     headers = [
       { key = "Content-Type", value = "application/json.*" }
     ]
@@ -19,7 +19,7 @@ delay = 1000
 [[routes]]
   [routes.request]
     path = "/media/avatar/{file}"
-    method = "GET"
+    methods = ["GET"]
   [routes.response]
     headers = [
       { key = "Content-Type", value = "image/svg+xml" }

@@ -27,10 +27,11 @@ func NewBlueprint(host string, port int) *Blueprint {
 }
 
 func (b *Blueprint) AddRoute(path string, method string, body string) *Route {
+	methods := []string{method}
 	route := &Route{
 		Request: &Request{
-			Path:   path,
-			Method: method,
+			Path:    path,
+			Methods: methods,
 		},
 		Response: &Response{
 			Template: body,
@@ -89,7 +90,7 @@ func (b *Blueprint) MakeRouter() *mux.Router {
 
 				fmt.Fprintf(w, output)
 			}
-		}).Methods(route.Request.Method).HeadersRegexp(hPairs...)
+		}).Methods(route.Request.Methods...).HeadersRegexp(hPairs...)
 	}
 	return router
 }

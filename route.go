@@ -7,7 +7,7 @@ type Route struct {
 
 type Request struct {
 	Path    string
-	Method  string
+	Methods []string
 	Headers []*Header
 }
 
