@@ -7,7 +7,8 @@ require (
 	github.com/gobuffalo/helpers v0.6.1 // indirect
 	github.com/gobuffalo/plush v3.8.3+incompatible
 	github.com/gorilla/mux v1.7.4
+	github.com/leaanthony/mewn v0.10.7
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/wailsapp/wails v1.0.2 // indirect
+	github.com/wailsapp/wails v1.0.2
 	syreclabs.com/go/faker v1.2.0
 )
