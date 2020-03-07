@@ -8,5 +8,6 @@ require (
 	github.com/gobuffalo/plush v3.8.3+incompatible
 	github.com/gorilla/mux v1.7.4
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/wailsapp/wails v1.0.2 // indirect
 	syreclabs.com/go/faker v1.2.0
 )
