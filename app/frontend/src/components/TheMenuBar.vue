@@ -7,7 +7,11 @@
       <AppButton>Run</AppButton>
     </div>
     <h1 class="the-menubar__title">My Workspace</h1>
-    <div></div>
+    <div>
+      <AppButton color="transparent">
+        <AppIcon icon="cog"></AppIcon>
+      </AppButton>
+    </div>
   </div>
 </template>
 

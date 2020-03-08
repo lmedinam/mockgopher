@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <transition name="fade">
+    <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
   </div>
@@ -21,7 +21,7 @@
 @keyframes fade-in {
   0% {
     opacity: 0;
-    transform: scale(.90);
+    transform: scale(.95);
   }
   100% {
     opacity: 1;

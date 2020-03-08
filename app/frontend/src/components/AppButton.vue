@@ -12,7 +12,8 @@ export default {
   computed: {
     classObject: function() {
       return {
-        'button--primary': this.color
+        'button--primary': this.color == 'primary',
+        'button--transparent': this.color == 'transparent'
       }
     }
   }
@@ -45,6 +46,10 @@ export default {
 
   &--primary {
     background-color: $primary-color;
+  }
+
+  &--transparent {
+    background-color: transparent;
   }
 }
 </style>
