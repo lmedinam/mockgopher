@@ -22,6 +22,6 @@ Wails.Init(() => {
 	new Vue({
 		router, render: h => h(App), mounted() {}
 	}).$mount('#app');
-	router.replace('/splash');
+	setTimeout(() => { router.replace('/splash'); }, 250);
 	setTimeout(() => { router.replace('/') }, 2000);
 });
