@@ -1,5 +1,5 @@
 <template>
     <div>
-        an awesome menu bar
+        Awesome status bar
     </div>
 </template>
