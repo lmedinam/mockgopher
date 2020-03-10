@@ -43,7 +43,9 @@ func main() {
 			filepath.Join(absPath, "resources")),
 	)
 
-	blueprint, _ := mockgopher.LoadBlueprint(string(content), locator)
+	loader := NewLoader(string(content), locator)
+
+	blueprint, _ := loader.MakeBlueprint()
 
 	srv := &http.Server{
 		Handler:      blueprint.MakeRouter(),
