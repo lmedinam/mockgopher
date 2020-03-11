@@ -3,7 +3,6 @@ package mockgopher
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"math/rand"
 	"net/http"
@@ -15,11 +14,12 @@ import (
 
 // Blueprint represent how should be serve the routes
 type Blueprint struct {
-	Host   string
-	Port   int
-	Delay  *int64
-	Routes []*Route
-	Log    io.Writer
+	Host            string
+	Port            int
+	Delay           *int64
+	Routes          []*Route
+	Log             io.Writer
+	ResourceLocator ResourceLocator
 }
 
 // NewBlueprint creates a new instance with some default values
@@ -28,7 +28,7 @@ func NewBlueprint(host string, port int) *Blueprint {
 	delay = new(int64)
 	*delay = 0
 
-	return &Blueprint{host, port, delay, []*Route{}, NewStdout()}
+	return &Blueprint{host, port, delay, []*Route{}, NewStdout(), nil}
 }
 
 // AddRoute is a simple way to add new routes to a created blueprint
@@ -88,15 +88,11 @@ func (b *Blueprint) MakeRouter() *mux.Router {
 				res := route.Response.Resources
 				ran := rand.New(rand.NewSource(time.Now().Unix()))
 
-				fileContent, err := ioutil.ReadFile(res[ran.Intn(len(res))])
-
-				if err != nil {
-					log.Fatal(err)
-				}
+				fileContent := b.ResourceLocator.Locate(res[ran.Intn(len(res))])
 
 				w.Write(fileContent)
 			} else {
-				output, err := View(route.Response.Template)
+				output, err := View(string(b.ResourceLocator.Locate(route.Response.Template)))
 				if err != nil {
 					log.Fatalln(err)
 				}

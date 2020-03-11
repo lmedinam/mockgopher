@@ -9,8 +9,6 @@ import (
 	"os"
 	"path/filepath"
 	"time"
-
-	"github.com/medinam/mockgopher"
 )
 
 func init() {
@@ -34,18 +32,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	absPath, _ := filepath.Abs(filepath.Dir(flag.Args()[0]))
-
-	locator := mockgopher.NewLocator(
-		mockgopher.NewFSTemplateReader(
-			filepath.Join(filepath.Dir(flag.Args()[0]), "templates")),
-		mockgopher.NewFSResourceLocater(
-			filepath.Join(absPath, "resources")),
-	)
-
-	loader := NewLoader(string(content), locator)
+	loader := NewLoader(string(content))
 
 	blueprint, _ := loader.MakeBlueprint()
+	blueprint.ResourceLocator = &FSResourceLocator{filepath.Dir(flag.Args()[0])}
 
 	srv := &http.Server{
 		Handler:      blueprint.MakeRouter(),

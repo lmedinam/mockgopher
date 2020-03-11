@@ -7,11 +7,10 @@ import (
 
 type Loader struct {
 	Project string
-	Locator *mockgopher.Locator
 }
 
-func NewLoader(project string, locator *mockgopher.Locator) *Loader {
-	return &Loader{project, locator}
+func NewLoader(project string) *Loader {
+	return &Loader{project}
 }
 
 func (l *Loader) MakeBlueprint() (*mockgopher.Blueprint, error) {
@@ -19,18 +18,6 @@ func (l *Loader) MakeBlueprint() (*mockgopher.Blueprint, error) {
 
 	if _, err := toml.Decode(l.Project, &blueprint); err != nil {
 		return nil, err
-	}
-
-	for _, route := range blueprint.Routes {
-		if len(route.Response.Resources) >= 1 {
-			route.Response.Resources = l.Locator.LocateResources(route.Response.Resources)
-		} else {
-			tContent, err := l.Locator.ReadTemplate(route.Response.Template)
-			if err != nil {
-				return nil, err
-			}
-			route.Response.Template = string(tContent)
-		}
 	}
 
 	return blueprint, nil

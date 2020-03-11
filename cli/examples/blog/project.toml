@@ -12,7 +12,7 @@ delay = 1000
     headers = [
       { key = "Content-Type", value = "application/json" }
     ]
-    template = "get-posts.json"
+    template = "templates/get-posts.json"
 
 [[routes]]
   [routes.request]
@@ -23,9 +23,9 @@ delay = 1000
       { key = "Content-Type", value = "image/svg+xml" }
     ]
     resources = [
-      "avatars/25789.svg",
-      "avatars/527688.svg",
-      "avatars/7896451.svg",
-      "avatars/9785412.svg",
-      "avatars/25678412.svg"
+      "resources/avatars/25789.svg",
+      "resources/avatars/527688.svg",
+      "resources/avatars/7896451.svg",
+      "resources/avatars/9785412.svg",
+      "resources/avatars/25678412.svg"
     ]
