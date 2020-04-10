@@ -2,6 +2,16 @@
 
 Is a library and CLI/GUI application to make mock server in a ease.
 
+## CLI Instalation
+
+To actually use MockGopher you need to install Go first, you can find how to install it in [https://golang.org/](https://golang.org/). Then you can run the `go get` command.
+
+```
+go get -u github.com/medinam/mockgopher/cli/mockgopher
+```
+
+Now you can use MockGopher normally, see [the instructions below](#cli-usage).
+
 ## CLI Usage
 
 You can see some examples in [cli/examples folder](cli/examples).
