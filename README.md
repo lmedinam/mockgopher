@@ -70,4 +70,4 @@ mockgopher.exe .\path\to\project.toml
 
 ## GUI Usage
 
-The GUI of MockGopher is actually under active development, you can see updates here or follow me [@medinam](https://twitter.com/luismedina_git) on Twitter.
+The GUI of MockGopher is actually under development, you can see updates here or follow me [@luismedina_git](https://twitter.com/luismedina_git) on Twitter.
