@@ -1,4 +1,4 @@
-# MockGopher (WIP)
+# MockGopher
 
 Is a library and CLI/GUI application to make mock server in a ease.
 
