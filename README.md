@@ -1,6 +1,6 @@
 # MockGopher
 
-Is a library and CLI/GUI application to make mock server in a ease.
+Is a library and CLI application to make mock server in a ease.
 
 ## CLI Instalation
 
