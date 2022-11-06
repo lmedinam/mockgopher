@@ -67,3 +67,12 @@ port = 3000
 ```powershell
 mockgopher.exe .\path\to\project.toml
 ```
+
+## Work in Progress
+
+Right now this application is completely functional, but there are some stuff to improve:
+
+ - Create more advanced examples
+ - Refactor core code
+ - Improve CLI error handling
+ - Implement optional cache to return same response in every call
