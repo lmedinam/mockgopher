@@ -1,5 +1,7 @@
 # MockGopher
 
+<img src="images/gopher.svg" width="256px">
+
 Is a library and CLI application to make mock server in a ease.
 
 ## CLI Instalation
